@@ -74,7 +74,7 @@ RELATED TOPICS:
 | # | File | Status |
 |---|------|--------|
 | 11 | `args_and_kwargs.py` | ⬜ |
-| 12 | `decorators.py` | ⬜ |
+| 12 | `decorators.py` | ✅ Done |
 | 13 | `closures.py` | ⬜ |
 | 14 | `inner_functions.py` | ⬜ |
 | 15 | `legb_scope.py` | ⬜ |
