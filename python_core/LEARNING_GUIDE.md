@@ -63,7 +63,7 @@ RELATED TOPICS:
 | 2 | `__str__and__repr__.py` | ⬜ |
 | 3 | `__call__.py` | ⬜ |
 | 4 | `__getattr__and__setattr__.py` | ⬜ |
-| 5 | `__iter__and__next__.py` | ⬜ |
+| 5 | `itertools_usage.py` | ✅ Done |
 | 6 | `__new__.py` | ⬜ |
 | 7 | `__add__and__sub__.py` | ⬜ |
 | 8 | `__gt__and__lt__.py` | ⬜ |
@@ -101,7 +101,7 @@ RELATED TOPICS:
 | 28 | `copy_shallow_deep.py` | ⬜ |
 | 29 | `dict_keys_views.py` | ⬜ |
 | 30 | `enumerate_zip.py` | ⬜ |
-| 31 | `itertools.py` | ⬜ |
+| 31 | `itertools_usage.py` | ✅ Done |
 | 32 | `collections_counter.py` | ✅ Done |
 | 33 | `collections_deque.py` | ✅ Done |
 | 34 | `collections_defaultdict.py` | ✅ Done |
