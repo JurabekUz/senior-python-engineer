@@ -109,7 +109,7 @@ RELATED TOPICS:
 ### Group 5 — Advanced Patterns
 | # | File | Status |
 |---|------|--------|
-| 35 | `context_manager.py` | ⬜ |
+| 35 | `context_manager.py` | ✅ Done |
 | 36 | `typing_hints.py` | ⬜ |
 | 37 | `dataclasses_core.py` | ✅ Done |
 | 38 | `everything_is_object.py` | ⬜ |
