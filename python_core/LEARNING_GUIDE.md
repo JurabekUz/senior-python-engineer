@@ -79,7 +79,7 @@ RELATED TOPICS:
 | 14 | `inner_functions.py` | ⬜ |
 | 15 | `legb_scope.py` | ⬜ |
 | 16 | `global_and_nonlocal.py` | ⬜ |
-| 17 | `generators.py` | ⬜ |
+| 17 | `generators.py` | ✅ Done |
 | 18 | `filter_map_reduce.py` | ⬜ |
 
 ### Group 3 — OOP Concepts
