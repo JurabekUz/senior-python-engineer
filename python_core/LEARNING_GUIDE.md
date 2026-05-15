@@ -80,7 +80,7 @@ RELATED TOPICS:
 | 15 | `legb_scope.py` | ⬜ |
 | 16 | `global_and_nonlocal.py` | ⬜ |
 | 17 | `generators.py` | ✅ Done |
-| 18 | `filter_map_reduce.py` | ⬜ |
+| 18 | `filter_map_reduce.py` | ✅ Done |
 
 ### Group 3 — OOP Concepts
 | # | File | Status |
@@ -114,6 +114,7 @@ RELATED TOPICS:
 | 37 | `dataclasses_core.py` | ✅ Done |
 | 38 | `everything_is_object.py` | ⬜ |
 | 39 | `assert.py` | ⬜ |
+| 40 | `name_dunder.py` | ✅ Done |
 
 ---
 
