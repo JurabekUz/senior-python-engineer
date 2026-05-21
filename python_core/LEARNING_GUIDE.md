@@ -61,14 +61,14 @@ RELATED TOPICS:
 |---|------|--------|
 | 1 | `__hash__and__eq__.py` | ✅ Done |
 | 2 | `__str__and__repr__.py` | ⬜ |
-| 3 | `__call__.py` | ⬜ |
+| 3 | `__call__.py` | ✅ Done |
 | 4 | `__getattr__and__setattr__.py` | ⬜ |
 | 5 | `itertools_usage.py` | ✅ Done |
 | 6 | `__new__.py` | ⬜ |
-| 7 | `__add__and__sub__.py` | ⬜ |
+| 7 | `__add__and__sub__.py` | ✅ Done |
 | 8 | `__gt__and__lt__.py` | ⬜ |
-| 9 | `__dict__.py` | ⬜ |
-| 10 | `__dir__.py` | ⬜ |
+| 9 | `__dict__.py` | ✅ Done |
+| 10 | `__dir__.py` | ✅ Done |
 
 ### Group 2 — Functions & Scope
 | # | File | Status |
