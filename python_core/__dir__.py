@@ -1,129 +1,148 @@
 """
-TOPIC: Namespace Introspection - The dir() Function
-=============================================================================
+TOPIC: Magic Method - __dir__ (and the dir() Function)
+======================================================
 
 WHAT IS IT?
-  - The built-in function `dir()` is used to list the attributes (names) defined 
-    within a specified object or module, or the names available in the current 
-    local scope if no argument is provided.
-  - It returns a sorted list of strings representing these attributes.
+  - `__dir__` is a magic method in Python that is implicitly called when the 
+    built-in `dir()` function is invoked on an object.
+  - By defining custom `__dir__()` behavior, a class can explicitly control the 
+    sorted list of attribute names that are returned by `dir()`.
 
 RULES / KEY POINTS:
-  1. Default Behavior: Calling `dir()` with no arguments lists names in the current 
-     local scope (variables, functions, classes, imported modules).
-  2. Object Introspection: `dir(obj)` returns a list of all attributes of `obj`, 
-     including instance variables, class variables, methods, and special methods 
-     (like those starting and ending with double underscores).
-  3. Modules: `dir(module)` lists all functions, classes, and variables defined 
-     in that module, as well as commonly imported names.
-  4. Type Behavior: `dir(type)` returns all attributes and methods of the type itself.
-  5. No Execution: `dir()` only inspects the namespace; it does not execute 
-     any code or functions associated with the attributes (except for modules, 
-     which are imported if not already present).
+  1. Default Behavior: By default, `dir()` retrieves all accessible instance variables, 
+     class variables, methods, and parent-class dunder methods via inheritance.
+  2. Customizing Discovery: Defining `__dir__(self)` must return a sequence (like a `list` 
+     or `tuple`) of strings representing the names of the attributes/methods.
+  3. Autocomplete Integration: Popular interactive shells, REPLs, and IDEs use `dir()` 
+     under the hood for autocompletion (tab-completion).
+  4. Complete Freedom: The names returned by `__dir__()` do not strictly have to exist 
+     as physical attributes on the object—they can be dynamic or virtual fields.
 
 COMMON PROBLEMS / PITFALLS:
-  - Pitfall 1: Assuming `dir()` lists the *contents* of attributes. It lists the *names* 
-    (keys/identifiers), not their values.
-  - Pitfall 2: Overlooking special methods (dunder methods). While `dir()` lists them, 
-    they are often filtered out in casual inspection.
-  - Pitfall 3: Confusing `dir()` with `vars()`. `vars()` returns the `__dict__` (attributes/state), 
-    whereas `dir()` returns a sorted list of all accessible names.
+  - Pitfall 1: Returning non-string elements. The sequence returned by `__dir__()` 
+    must consist entirely of strings; otherwise, `dir()` raises a `TypeError`.
+  - Pitfall 2: Over-filtering. If you implement `__dir__()` and forget to include 
+    standard properties or class methods (like `super().__dir__()`), developers 
+    will lose autocomplete for standard, valid methods.
 
 WHEN TO USE IT:
-  - Discovery: When you need to explore the available attributes of an object or 
-    the contents of a module without prior knowledge.
-  - Debugging: To quickly see what attributes an object has and verify that your 
-    class or function definitions are being recognized.
-  - Interactive Work: Essential in REPLs (like the Python interpreter or Jupyter notebooks) 
-    to explore available tools.
+  - Dynamic Proxies: When delegating attribute lookups to another object (e.g., in a 
+    Wrapper or Proxy pattern) and wanting the proxy to advertise the wrapped object's attributes.
+  - Custom ORMs / JSON Models: When attributes are fetched dynamically from a database schema 
+    or external API payload, and you want them to be discoverable by IDE autocomplete tools.
 
 RELATED TOPICS:
-  - `vars()` function and `__dict__` attribute
-  - `globals()` and `locals()` functions
-  - `hasattr()`, `getattr()`, `setattr()` for attribute access
-  - Module introspection
+  - The built-in `dir()` and `vars()` functions
+  - Attribute access methods: `__getattr__`, `__getattribute__`
+  - Dynamic developer experiences (DX)
 """
 
 # ─────────────────────────────────────────────
-# SECTION 1 — Basic Concept (Built-ins & Global Scope)
+# SECTION 1 — Basic Concept (Customizing dir() Output)
 # ─────────────────────────────────────────────
 
-import math
+# In this section, we build a simple class that overrides __dir__ to return a 
+# custom list of names. This shows how dir() calls __dir__() internally.
 
+class SimpleCustomDirectory:
+    def __init__(self, key: str, val: str):
+        self.key = key
+        self.val = val
 
-def demonstrate_basic_scope():
-    print("--- Section 1: Basic Concept ---")
-    
-    # 1. dir() with no arguments: Lists names in the current scope (globals + locals)
-    # This includes variables, functions, classes, and imported modules.
-    names_in_scope = dir()  # Equivalent to dir(globals())
-    print("Names in current scope (first 20):", names_in_scope[:20])
-    
-    # 2. Built-in namespace
-    # dir(__builtins__) lists all available built-in functions, types, and constants.
-    print("Built-in functions/types (first 20):", dir(__builtins__)[:20])
+    # Control what dir(instance) returns
+    def __dir__(self) -> list:
+        # We can return an arbitrary list of strings!
+        return ["custom_attribute_1", "custom_attribute_2", "key", "val"]
 
 
 # ─────────────────────────────────────────────
-# SECTION 2 — Advanced Usage (Object & Module Introspection)
+# SECTION 2 — Advanced / Real-World Usage (Dynamic Autocomplete for ORM Model)
 # ─────────────────────────────────────────────
 
-class Car:
-    """A simple class to demonstrate attribute listing."""
-    def __init__(self, make: str, model: str, year: int):
-        self.make = make        # Instance variable
-        self.model = model      # Instance variable
-        self._year = year       # "Protected" instance variable
-        self.__vin = f"VIN_{make[:2]}_{model[:2]}"  # "Private" instance variable
+# Here, we create an ORM-like DynamicRecord class.
+# It holds database schema keys and values in a private dictionary.
+# We override __getattr__ to resolve dynamic field access.
+# We override __dir__ to merge standard class attributes with the dynamic schema keys,
+# giving IDE autocomplete tools a seamless discoverability experience.
 
-    def start_engine(self) -> str:
-        return f"{self.make} {self.model}'s engine started."
+class DynamicRecord:
+    def __init__(self, schema_fields: list, data: dict):
+        self._fields = schema_fields
+        self._data = data
 
-    def _internal_method(self) -> None:
-        pass
+    # 1. Catch-all for dynamic attribute access (e.g., record.email)
+    def __getattr__(self, name: str):
+        if name in self._fields:
+            return self._data.get(name, None)
+        raise AttributeError(f"'{self.__class__.__name__}' has no attribute '{name}'")
+
+    # 2. Custom __dir__ merging standard class metadata with dynamic keys
+    def __dir__(self) -> list:
+        # Get standard class attributes (like __init__, __getattr__, self._fields, etc.)
+        standard_attrs = list(super().__dir__())
+        # Return standard attributes combined with our dynamic database fields
+        return standard_attrs + self._fields
 
 
-def demonstrate_advanced_introspection():
-    print("\n--- Section 2: Advanced Usage ---")
-
-    # 1. Introspecting a class instance
-    my_car = Car("Toyota", "Camry", 2024)
-    print("Attributes of Car instance (first 20):", dir(my_car)[:20])
+def main():
+    # --- Testing Section 1: Custom Directory ---
+    print("--- Section 1: Simple Custom __dir__ ---")
+    simple_obj = SimpleCustomDirectory("username", "jurabek")
     
-    # 2. Introspecting the Car class itself
-    print("Attributes of Car class (first 20):", dir(Car)[:20])
+    # Normally dir() would return standard methods like __init__, __class__, etc.
+    # But now it returns exactly what we defined in __dir__()!
+    print("dir() on simple_obj:", dir(simple_obj))
+    print("Has physical 'custom_attribute_1'? :", hasattr(simple_obj, "custom_attribute_1"))
 
-    # 3. Introspecting a module
-    # Lists functions, classes, constants, and submodules.
-    print("Attributes of math module (first 20):", dir(math)[:20])
+    # --- Testing Section 2: Dynamic ORM Autocomplete ---
+    print("\n--- Section 2: Dynamic ORM Autocomplete ---")
+    columns = ["id", "email", "role", "is_verified"]
+    row_data = {"id": 42, "email": "jurabek@faang.com", "role": "Senior Engineer"}
 
-    # 4. Listing attributes of a type (e.g., list)
-    print("Attributes of list type (first 20):", dir(list)[:20])
+    user_record = DynamicRecord(schema_fields=columns, data=row_data)
 
-    # 5. Using dir() on built-in types
-    print("Attributes of string type (first 20):", dir(str)[:20])
+    # 1. Introspection via dir()
+    available_names = dir(user_record)
+    print("Is dynamic column 'email' discoverable via dir()? :", "email" in available_names)
+    print("Is dynamic column 'role' discoverable via dir()? :", "role" in available_names)
+    print("Is dynamic column 'is_verified' discoverable via dir()? :", "is_verified" in available_names)
+
+    # 2. Dynamic access works seamlessly
+    print("\nDynamic Property Access:")
+    print(f"  User ID: {user_record.id}")
+    print(f"  User Email: {user_record.email}")
+    print(f"  User Role: {user_record.role}")
+    print(f"  Is Verified: {user_record.is_verified}")
 
 
 # ─────────────────────────────────────────────
 # TESTS — Expected output explained
 # ─────────────────────────────────────────────
 
-def run_tests():
-    demonstrate_basic_scope()
-    demonstrate_advanced_introspection()
-
-
 if __name__ == '__main__':
-    run_tests()
+    main()
 
 # Expected Output:
-# --- Section 1: Basic Concept ---
-# Names in current scope (first 20): ['Car', 'GeometricShape', 'MathProcessor', '_001_...', '_011_...', 'demonstrate_advanced_introspection', 'demonstrate_basic_scope', 'expected_output', 'math', 'my_car', 'names_in_scope', 'run_tests', 'tests_passed', 'tutorial_path']
-# Built-in functions/types (first 20): ['ArithmeticError', 'AssertionError', 'AttributeError', 'BaseException', 'BlockingIOError', 'BrokenPipeError', 'BufferError', 'BytesWarning', 'ChildProcessError', 'ConnectionAbortedError', 'ConnectionError', 'ConnectionRefusedError', 'ConnectionResetError', 'DeprecationWarning', 'EOFError', 'EncodingWarning', 'EnvironmentError', 'Exception', 'FileExistsError', 'FileNotFoundError']
+# --- Section 1: Simple Custom __dir__ ---
+# dir() on simple_obj: ['custom_attribute_1', 'custom_attribute_2', 'key', 'val']
+# Has physical 'custom_attribute_1'? : False
 #
-# --- Section 2: Advanced Usage ---
-# Attributes of Car instance (first 20): ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__']
-# Attributes of Car class (first 20): ['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__']
-# Attributes of math module (first 20): ['__doc__', '__loader__', '__name__', '__package__', '__spec__', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'comb', 'copysign', 'cos', 'cosh', 'degrees', 'dist', 'erf']
-# Attributes of list type (first 20): ['__add__', '__and__', '__class__', '__contains__', '__delattr__', '__delitem__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__iand__', '__imul__', '__init__', '__init_subclass__']
-# Attributes of string type (first 20): ['__add__', '__and__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__gt__', '__hash__', '__iadd__', '__iand__', '__imul__', '__init__', '__init_subclass__',
+# --- Section 2: Dynamic ORM Autocomplete ---
+# Is dynamic column 'email' discoverable via dir()? : True
+# Is dynamic column 'role' discoverable via dir()? : True
+# Is dynamic column 'is_verified' discoverable via dir()? : True
+#
+# Dynamic Property Access:
+#   User ID: 42
+#   User Email: jurabek@faang.com
+#   User Role: Senior Engineer
+#   Is Verified: None
+#
+# Why:
+#   1. In Section 1, calling dir() directly executed 'SimpleCustomDirectory.__dir__()',
+#      returning our exact custom list, overriding standard dunder introspection.
+#   2. In Section 2, the 'user_record' object holds dynamic properties inside its schema.
+#      By combining super().__dir__() with 'self._fields' inside our custom '__dir__()',
+#      the dynamic database attributes are successfully advertised to autocomplete systems.
+#   3. '__getattr__' intercepts calls to 'user_record.email', pulling the value 
+#      directly from 'self._data'.

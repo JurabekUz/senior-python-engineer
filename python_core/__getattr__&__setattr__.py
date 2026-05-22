@@ -22,7 +22,7 @@ def example1():
     obj1 = Count(1, 10)
     print(obj1.mymin)
     print(obj1.mymax)
-    # print("Not existing:", obj1.mycurrent)  # AttributeError: 'Count' object has no attribute 'mycurrent'
+    print("Not existing:", obj1.mycurrent)  # AttributeError: 'Count' object has no attribute 'mycurrent'
 
 
 def example2():

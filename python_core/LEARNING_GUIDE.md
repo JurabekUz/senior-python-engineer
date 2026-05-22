@@ -62,7 +62,7 @@ RELATED TOPICS:
 | 1 | `__hash__and__eq__.py` | ✅ Done |
 | 2 | `__str__and__repr__.py` | ⬜ |
 | 3 | `__call__.py` | ✅ Done |
-| 4 | `__getattr__and__setattr__.py` | ⬜ |
+| 4 | `__getattr__and__setattr__.py` | ✅ Done |
 | 5 | `itertools_usage.py` | ✅ Done |
 | 6 | `__new__.py` | ⬜ |
 | 7 | `__add__and__sub__.py` | ✅ Done |
@@ -115,6 +115,7 @@ RELATED TOPICS:
 | 38 | `everything_is_object.py` | ⬜ |
 | 39 | `assert.py` | ⬜ |
 | 40 | `name_dunder.py` | ✅ Done |
+| 41 | `faang_interview_internals.md` | ✅ Done |
 
 ---
 
