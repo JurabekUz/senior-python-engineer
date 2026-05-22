@@ -60,20 +60,20 @@ RELATED TOPICS:
 | # | File | Status |
 |---|------|--------|
 | 1 | `__hash__and__eq__.py` | ✅ Done |
-| 2 | `__str__and__repr__.py` | ⬜ |
+| 2 | `__str__and__repr__.py` | ✅ Done |
 | 3 | `__call__.py` | ✅ Done |
 | 4 | `__getattr__and__setattr__.py` | ✅ Done |
 | 5 | `itertools_usage.py` | ✅ Done |
-| 6 | `__new__.py` | ⬜ |
+| 6 | `__new__.py` | ✅ Done |
 | 7 | `__add__and__sub__.py` | ✅ Done |
-| 8 | `__gt__and__lt__.py` | ⬜ |
+| 8 | `__gt__and__lt__.py` | ✅ Done |
 | 9 | `__dict__.py` | ✅ Done |
 | 10 | `__dir__.py` | ✅ Done |
 
 ### Group 2 — Functions & Scope
 | # | File | Status |
 |---|------|--------|
-| 11 | `args_and_kwargs.py` | ⬜ |
+| 11 | `args_and_kwargs.py` | ✅ Done |
 | 12 | `decorators.py` | ✅ Done |
 | 13 | `closures.py` | ⬜ |
 | 14 | `inner_functions.py` | ⬜ |
