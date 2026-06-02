@@ -1,57 +1,74 @@
-# Example 1
-def func():
-    hello = "Hello"
-    return hello
-
-
-func.temp = 1
-
-print(func.__dict__)
-
-print(func)
-
-
-# Example 2
-class Point:
-    __slots__ = "x", "y"  # Restricting number of attributes, and making memory consumption faster, compared to __dict__
-
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-
-# Example 3
 """
->>> class A:
-...     def __init__(self, a):
-...         self.a = a
-... 
->>> a = A(4)
->>> a.__dict__
-{'a': 4}
->>> a.f = 123
->>> a.__dict__  # Default is __dict__ but we can overwrite with __slots__
-{'a': 4, 'f': 123}
->>> 
+TOPIC: Everything is an Object
+======================================================
+
+WHAT IS IT?
+  In Python, literally everything is an object. This includes numbers, strings, functions, modules, and even classes themselves.
+  Since they are objects, they can be assigned to variables, passed as arguments, and returned from functions (First-class citizens).
+
+RULES / KEY POINTS:
+  1. All objects inherit from the base `object` class.
+  2. Functions are objects (instances of the `function` class).
+  3. Classes are objects (instances of the `type` class or a custom metaclass).
+  4. You can inspect any object using `dir()`, `type()`, and `id()`.
+
+COMMON PROBLEMS / PITFALLS:
+  - Pitfall 1: Mutating default arguments (like `def foo(l=[]):`). Since the function is an object created once, its default argument object persists across calls.
+  - Pitfall 2: Confusing class attributes with instance attributes, since the class itself is an object that holds its own state.
+
+WHEN TO USE IT:
+  - Understanding this is crucial for advanced Python programming, such as writing decorators, metaprogramming, and functional paradigms.
+
+RELATED TOPICS:
+  - First-Class Functions
+  - Metaclasses
+  - Memory Management (Garbage Collection)
 """
 
+# ─────────────────────────────────────────────
+# SECTION 1 — Basic Concept
+# ─────────────────────────────────────────────
 
-# Example 4
-class Circle(object):
-    """Implementation-independent abstraction: for example, there could be a rectangle class!"""
+def simple_function():
+    return "I am a function"
 
-    def __init__(self, radius, drawing_api):
-        self._radius = radius
-        self._drawing_api = drawing_api
+# Functions can be assigned to variables
+func_alias = simple_function
 
-    def draw(self):
-        """Implementation-specific abstraction taken care of by another class: DrawingAPI"""
-        self._drawing_api.test(self._radius)
+# Functions have attributes like any other object
+simple_function.custom_attr = "I attached data to a function!"
 
-    # def test2(self):
-    #     """Implementation-specific abstraction taken care of by another class: DrawingAPI"""
-    #     self._drawing_api.test22 = "test"
+# ─────────────────────────────────────────────
+# SECTION 2 — Advanced / Real-World Usage
+# ─────────────────────────────────────────────
 
+# Classes are objects too
+class MyClass:
+    pass
 
-c = Circle(5, "test")
-c.draw()
+# We can pass the class itself (not an instance) to a function
+def instantiate_class(cls):
+    print(f"Instantiating {cls.__name__}...")
+    return cls()
+
+obj = instantiate_class(MyClass)
+
+# ─────────────────────────────────────────────
+# TESTS — Expected output explained
+# ─────────────────────────────────────────────
+
+if __name__ == '__main__':
+    print("Function call via alias:", func_alias())
+    print("Function custom attribute:", simple_function.custom_attr)
+    print("Type of function:", type(simple_function))
+    print("Type of MyClass:", type(MyClass))
+    print("Type of 42:", type(42))
+
+# Output:
+#   Function call via alias: I am a function
+#   Function custom attribute: I attached data to a function!
+#   Type of function: <class 'function'>
+#   Instantiating MyClass...
+#   Type of MyClass: <class 'type'>
+#   Type of 42: <class 'int'>
+# Why: Every entity in Python, whether a primitive number, a function, or a class blueprint, is an instance of some fundamental class (like `int`, `function`, or `type`).

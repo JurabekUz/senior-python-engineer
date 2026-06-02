@@ -110,10 +110,10 @@ RELATED TOPICS:
 | # | File | Status |
 |---|------|--------|
 | 35 | `context_manager.py` | ✅ Done |
-| 36 | `typing_hints.py` | ⬜ |
+| 36 | `typing_hints.py` | ✅ Done |
 | 37 | `dataclasses_core.py` | ✅ Done |
-| 38 | `everything_is_object.py` | ⬜ |
-| 39 | `assert.py` | ⬜ |
+| 38 | `everything_is_object.py` | ✅ Done |
+| 39 | `assert.py` | ✅ Done |
 | 40 | `name_dunder.py` | ✅ Done |
 | 41 | `faang_interview_internals.md` | ✅ Done |
 
