@@ -75,10 +75,10 @@ RELATED TOPICS:
 |---|------|--------|
 | 11 | `args_and_kwargs.py` | ✅ Done |
 | 12 | `decorators.py` | ✅ Done |
-| 13 | `closures.py` | ⬜ |
-| 14 | `inner_functions.py` | ⬜ |
-| 15 | `legb_scope.py` | ⬜ |
-| 16 | `global_and_nonlocal.py` | ⬜ |
+| 13 | `closures.py` | ✅ Done |
+| 14 | `inner_functions.py` | ✅ Done |
+| 15 | `legb_scope.py` | ✅ Done |
+| 16 | `global_and_nonlocal.py` | ✅ Done |
 | 17 | `generators.py` | ✅ Done |
 | 18 | `filter_map_reduce.py` | ✅ Done |
 
