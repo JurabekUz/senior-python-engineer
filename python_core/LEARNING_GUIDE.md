@@ -97,10 +97,10 @@ RELATED TOPICS:
 | # | File | Status |
 |---|------|--------|
 | 26 | `collections_namedtuple.py` | ✅ Done |
-| 27 | `enum.py` | ⬜ |
-| 28 | `copy_shallow_deep.py` | ⬜ |
-| 29 | `dict_keys_views.py` | ⬜ |
-| 30 | `enumerate_zip.py` | ⬜ |
+| 27 | `enum_usage.py` | ✅ Done |
+| 28 | `copy_shallow_deep.py` | ✅ Done |
+| 29 | `dict_keys_views.py` | ✅ Done |
+| 30 | `enumerate_zip.py` | ✅ Done |
 | 31 | `itertools_usage.py` | ✅ Done |
 | 32 | `collections_counter.py` | ✅ Done |
 | 33 | `collections_deque.py` | ✅ Done |
