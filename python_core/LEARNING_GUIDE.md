@@ -85,8 +85,8 @@ RELATED TOPICS:
 ### Group 3 — OOP Concepts
 | # | File | Status |
 |---|------|--------|
-| 19 | `abc_abstract.py` | ⬜ |
-| 20 | `property.py` | ⬜ |
+| 19 | `abc_abstract.py` | ✅ Done |
+| 20 | `property.py` | ✅ Done |
 | 21 | `class_attributes.py` | ⬜ |
 | 22 | `inheritance_mro.py` | ⬜ |
 | 23 | `diamond_problem.py` | ⬜ |
