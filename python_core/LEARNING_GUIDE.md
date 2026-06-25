@@ -90,7 +90,7 @@ RELATED TOPICS:
 | 21 | `class_attributes.py` | ✅ Done |
 | 22 | `inheritance_mro.py` | ✅ Done |
 | 23 | `diamond_problem.py` | ✅ Done |
-| 24 | `duck_typing.py` | ⬜ |
+| 24 | `duck_typing.py` | ✅ Done |
 | 25 | `overloading.py` | ⬜ |
 
 ### Group 4 — Data Structures & Built-ins
