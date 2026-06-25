@@ -88,7 +88,7 @@ RELATED TOPICS:
 | 19 | `abc_abstract.py` | ✅ Done |
 | 20 | `property.py` | ✅ Done |
 | 21 | `class_attributes.py` | ✅ Done |
-| 22 | `inheritance_mro.py` | ⬜ |
+| 22 | `inheritance_mro.py` | ✅ Done |
 | 23 | `diamond_problem.py` | ⬜ |
 | 24 | `duck_typing.py` | ⬜ |
 | 25 | `overloading.py` | ⬜ |
