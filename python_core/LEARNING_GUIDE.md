@@ -91,7 +91,7 @@ RELATED TOPICS:
 | 22 | `inheritance_mro.py` | ✅ Done |
 | 23 | `diamond_problem.py` | ✅ Done |
 | 24 | `duck_typing.py` | ✅ Done |
-| 25 | `overloading.py` | ⬜ |
+| 25 | `overloading.py` | ✅ Done |
 
 ### Group 4 — Data Structures & Built-ins
 | # | File | Status |
